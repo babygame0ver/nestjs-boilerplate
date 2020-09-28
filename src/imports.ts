@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UserModule } from '@app/user';
 import { CoreModule } from '@app/core';
 import { DbModule } from '@app/_db';
+import { StorageModule } from './storage';
 
 export default [
   ConfigModule.forRoot({
@@ -13,4 +14,5 @@ export default [
   CoreModule,
   UserModule,
   DbModule,
+  StorageModule,
 ];
