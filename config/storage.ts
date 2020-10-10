@@ -10,9 +10,9 @@ export default registerAs('storage', () => ({
       secret: process.env.AWS_SECRET,
       region: process.env.AWS_REGION,
     },
-    fileSystem: {
+    hardDisk: {
       driver: 'local',
-      baseUrl: '',
+      baseUrl: 'https://api.squareboat.info',
     },
   },
 }));

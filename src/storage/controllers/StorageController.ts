@@ -7,9 +7,12 @@ import {
   Put,
   UseGuards,
   Post,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { MustBeAuthenticated } from '@app/user';
 import { StorageService } from '../services';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 UseGuards(MustBeAuthenticated);
 @Controller('/storage')
@@ -25,5 +28,11 @@ export class StorageController extends ApiController {
   ): Promise<Response> {
     const inputs = req.all();
     return res.success({});
+  }
+
+  @Post('/local-file-upload')
+  @UseInterceptors(FileInterceptor('image'))
+  async LocalFileUpload(@UploadedFile() file) {
+    await this.storageService.storeFile(file);
   }
 }

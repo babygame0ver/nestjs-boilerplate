@@ -20,7 +20,7 @@ async function bootstrap() {
   app.use(rateLimit({ windowMs: 60, max: 50 }));
 
   // guards
-  app.useGlobalGuards(new RequestGaurd(),);
+  app.useGlobalGuards(new RequestGaurd());
 
   // filters
   const { httpAdapter } = app.get(HttpAdapterHost);

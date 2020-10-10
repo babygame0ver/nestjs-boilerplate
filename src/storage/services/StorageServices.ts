@@ -1,17 +1,26 @@
-import { Injectable, Inject, HttpService } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Storage as nestStorage } from '@squareboat/nest-storage';
-// import { BaseValidator } from '@app/core';
-import { v4 as uuidv4 } from 'uuid';
-// import { Storage } from '../validators';
-import { STORAGE_REPOSITORY } from '../constants';
-import { StorageRepository } from '../repositories';
 import { ConfigService } from '@nestjs/config';
+import * as path from 'path';
 
 @Injectable()
 export class StorageService {
-  constructor() // private validator: BaseValidator,
-  // @Inject(STORAGE_REPOSITORY)
-  // private storageRepo: StorageRepository,
-  // private config: ConfigService,
-  {}
+  constructor(private config: ConfigService) {}
+
+  async storeFile(file: any) {
+    const hardDisk = nestStorage.disk('hardDisk');
+    const { originalname, buffer } = file;
+    const filePath = path.join(
+      '/Users/akshay-squareboat/Desktop/open-source/temp-storage',
+      originalname,
+    );
+    await hardDisk.put(filePath, buffer);
+    console.log(await hardDisk.getMetaData(filePath));
+    console.log(await hardDisk.missing(filePath));
+    console.log(await hardDisk.exists(filePath));
+    console.log(await hardDisk.get(filePath));
+    console.log(hardDisk.url(originalname));
+    console.log(hardDisk.getConfig());
+    // console.log(await hardDisk.delete(filePath));
+  }
 }
