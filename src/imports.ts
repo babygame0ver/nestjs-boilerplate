@@ -16,7 +16,4 @@ export default [
   UserModule,
   DbModule,
   StorageModule,
-  MulterModule.register({
-    dest: './uploads',
-  }),
 ];

@@ -13,6 +13,7 @@ export default registerAs('storage', () => ({
     hardDisk: {
       driver: 'local',
       baseUrl: 'https://api.squareboat.info',
+      basePath: '',
     },
   },
 }));

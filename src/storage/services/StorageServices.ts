@@ -10,10 +10,7 @@ export class StorageService {
   async storeFile(file: any) {
     const hardDisk = nestStorage.disk('hardDisk');
     const { originalname, buffer } = file;
-    const filePath = path.join(
-      '/Users/akshay-squareboat/Desktop/open-source/temp-storage',
-      originalname,
-    );
+    const filePath = originalname;
     await hardDisk.put(filePath, buffer);
     console.log(await hardDisk.getMetaData(filePath));
     console.log(await hardDisk.missing(filePath));
@@ -21,6 +18,17 @@ export class StorageService {
     console.log(await hardDisk.get(filePath));
     console.log(hardDisk.url(originalname));
     console.log(hardDisk.getConfig());
-    // console.log(await hardDisk.delete(filePath));
+    // await hardDisk
+    //   .delete(filePath)
+    //   .then(result => {
+    //     console.log(result);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+    const s3 = nestStorage.disk('media');
+    await s3.put(originalname, buffer);
+    hardDisk.copy(originalname, 'media');
+    s3.copy(originalname, 'hardDisk');
   }
 }
